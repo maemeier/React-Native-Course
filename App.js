@@ -13,7 +13,7 @@ export default class App extends React.Component {
             <TitleBar>
               <Avatar source={require("./assets/avatar.jpg")} />
               <Title>Welcome back,</Title>
-              <Name>Mae</Name>
+              <Name>Mae Meier</Name>
             </TitleBar>
 
             <ScrollView
@@ -25,11 +25,9 @@ export default class App extends React.Component {
               }}
               horizontal={true}
             >
-              <Logo
-                image={require("./assets/logo-framerx.png")}
-                text="Fremer X"
-              />
-              <Logo image={require("./assets/logo-figma.png")} text="Figma" />
+              {logos.map((logo, index) => (
+                <Logo image={logo.image} text={logo.text} />
+              ))}
             </ScrollView>
             <Sub>Continue Learning</Sub>
             <ScrollView
@@ -108,3 +106,30 @@ const Sub = styled.Text`
   padding-left: 18px;
   text-transform: uppercase;
 `;
+
+const logos = [
+  {
+    image: require("./assets/logo-framerx.png"),
+    text: "Framerx"
+  },
+  {
+    image: require("./assets/logo-figma.png"),
+    text: "Figma"
+  },
+  {
+    image: require("./assets/logo-studio.png"),
+    text: "Studio"
+  },
+  {
+    image: require("./assets/logo-react.png"),
+    text: "React"
+  },
+  {
+    image: require("./assets/logo-swift.png"),
+    text: "Swift"
+  },
+  {
+    image: require("./assets/logo-sketch.png"),
+    text: "Sketch"
+  }
+];
