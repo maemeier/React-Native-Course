@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Animated, TouchableOpacity, Dimensions } from "react-native";
-
+import MenuItem from "./MenuItem";
 import { Ionicons } from "@expo/vector-icons";
 
 const screenHeight = Dimensions.get("window").height;
@@ -24,7 +24,11 @@ class Menu extends React.Component {
   render() {
     return (
       <AnimatedContainer style={{ top: this.state.top }}>
-        <Cover />
+        <Cover>
+          <Image source={require("../assets/background2.jpg")} />
+          <Title>Mae Meier</Title>
+          <Subtitle>React Developer</Subtitle>
+        </Cover>
         <TouchableOpacity
           onPress={this.toggleMenu}
           style={{
@@ -39,7 +43,9 @@ class Menu extends React.Component {
             <Ionicons name="ios-close" size={44} color="#546cfb" />
           </CloseView>
         </TouchableOpacity>
-        <Content />
+        <Content>
+          <MenuItem />
+        </Content>
       </AnimatedContainer>
     );
   }
@@ -65,11 +71,32 @@ const Container = styled.View`
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
+
 const Cover = styled.View`
   height: 142px;
   background: black;
+  justify-content: center;
+  align-items: center;
 `;
 const Content = styled.View`
   height: ${screenHeight};
   background: #f0f3f5;
+`;
+
+const Image = styled.Image`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
+const Title = styled.Text`
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+`;
+
+const Subtitle = styled.Text`
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
 `;
