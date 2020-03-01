@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Animated } from "react-native";
-import { Icon } from "expo";
+import { Ionicons } from "@expo/vector-icons";
 class Menu extends React.Component {
   state = {
     top: new Animated.Value(900)
@@ -16,7 +16,7 @@ class Menu extends React.Component {
     return (
       <AnimatedContainer style={{ top: this.state.top }}>
         <Cover />
-        <CloseView></CloseView>
+        <Ionicons name="ios-close" size={44} color="#546cfb" />
         <Content />
       </AnimatedContainer>
     );
