@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
 import styled from "styled-components";
 import Card from "./components/Card";
 import Logo from "./components/Logo";
+import Course from "./components/Course";
 
 export default class App extends React.Component {
   render() {
@@ -47,6 +48,21 @@ export default class App extends React.Component {
                 />
               ))}
             </ScrollView>
+            <Sub>Popular Courses</Sub>
+
+            {courses.map((course, index) => (
+              <Course
+                key={index}
+                image={course.image}
+                title={course.title}
+                subtitle={course.subtitle}
+                logo={course.logo}
+                author={course.author}
+                avatar={course.avatar}
+                caption={course.caption}
+              />
+            ))}
+            <Course />
           </ScrollView>
         </SafeAreaView>
       </Container>
@@ -165,5 +181,35 @@ const cards = [
     subtitle: "React Native",
     caption: "1 of 12 sections",
     logo: require("./assets/logo-react.png")
+  }
+];
+
+const courses = [
+  {
+    title: "Prototype in InVision Studio",
+    subtitle: "10 sections",
+    image: require("./assets/background13.jpg"),
+    logo: require("./assets/logo-figma.png"),
+    author: "Mae Meier",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Design and interactive prototype"
+  },
+  {
+    title: "React for Designers",
+    subtitle: "12 sections",
+    image: require("./assets/background8.jpg"),
+    logo: require("./assets/logo-react.png"),
+    author: "Mae Meier",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Learn to design and code a React site"
+  },
+  {
+    title: "Design and Code with Framer X",
+    subtitle: "10 sections",
+    image: require("./assets/background14.jpg"),
+    logo: require("./assets/logo-framerx.png"),
+    author: "Mae Meier",
+    avatar: require("./assets/avatar.jpg"),
+    caption: "Create powerful design and code components for your app"
   }
 ];
