@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, StyleSheet, View, ScrollView } from "react-native";
+import { Text, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
 import styled from "styled-components";
 import Card from "./components/Card";
+import Logo from "./components/Logo";
 
 export default class App extends React.Component {
   render() {
@@ -14,26 +15,29 @@ export default class App extends React.Component {
 
           <Subtitle>Continue Learning</Subtitle>
         </TitleBar>
-        <ScrollView
-          horizontal={true}
-          style={{ paddingBottom: 30 }}
-          showsHorizontalScrollIndicator={false}
-        >
-          <Card
-            title="Styled Components"
-            image={require("./assets/background13.jpg")}
-            caption="React Native"
-            logo={require("./assets/logo-react.png")}
-            subtitle="5 of 12 sections"
-          />
-          <Card
-            title="Props and Children"
-            image={require("./assets/background14.jpg")}
-            caption="React JS"
-            logo={require("./assets/logo-react.png")}
-            subtitle="10 of 12 sections"
-          />
-        </ScrollView>
+        <Logo image={require("./assets/logo-framerx.png")} text="Fremer X" />
+        <SafeAreaView>
+          <ScrollView
+            horizontal={true}
+            style={{ paddingBottom: 30 }}
+            showsHorizontalScrollIndicator={false}
+          >
+            <Card
+              title="Styled Components"
+              image={require("./assets/background13.jpg")}
+              caption="React Native"
+              logo={require("./assets/logo-react.png")}
+              subtitle="5 of 12 sections"
+            />
+            <Card
+              title="Props and Children"
+              image={require("./assets/background14.jpg")}
+              caption="React JS"
+              logo={require("./assets/logo-react.png")}
+              subtitle="10 of 12 sections"
+            />
+          </ScrollView>
+        </SafeAreaView>
       </Container>
     );
   }
