@@ -105,5 +105,6 @@ const Sub = styled.Text`
   color: #b8bece;
   font-weight: 600;
   font-size: 15px;
+  padding-left: 18px;
   text-transform: uppercase;
 `;
