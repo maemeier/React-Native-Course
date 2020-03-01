@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Animated } from "react-native";
+import { Animated, TouchableOpacity, Dimensions } from "react-native";
+
 import { Ionicons } from "@expo/vector-icons";
+
+const screenHeight = Dimensions.get("window").height;
 class Menu extends React.Component {
   state = {
-    top: new Animated.Value(900)
+    top: new Animated.Value(screenHeight)
   };
 
   componentDidMount() {
@@ -12,11 +15,30 @@ class Menu extends React.Component {
       toValue: 0
     }).start();
   }
+
+  toggleMenu = props => {
+    Animated.spring(this.state.top, {
+      toValue: screenHeight
+    }).start();
+  };
   render() {
     return (
       <AnimatedContainer style={{ top: this.state.top }}>
         <Cover />
-        <Ionicons name="ios-close" size={44} color="#546cfb" />
+        <TouchableOpacity
+          onPress={this.toggleMenu}
+          style={{
+            position: "absolute",
+            top: 120,
+            left: "50%",
+            marginLeft: -22,
+            zIndex: 1
+          }}
+        >
+          <CloseView>
+            <Ionicons name="ios-close" size={44} color="#546cfb" />
+          </CloseView>
+        </TouchableOpacity>
         <Content />
       </AnimatedContainer>
     );
@@ -25,6 +47,15 @@ class Menu extends React.Component {
 
 export default Menu;
 
+const CloseView = styled.View`
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+`;
 const Container = styled.View`
   position: absolute;
   background: white;
@@ -39,6 +70,6 @@ const Cover = styled.View`
   background: black;
 `;
 const Content = styled.View`
-  height: 900px;
+  height: ${screenHeight};
   background: #f0f3f5;
 `;
