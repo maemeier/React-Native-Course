@@ -24,9 +24,10 @@ export default class App extends React.Component {
                 paddingTop: 30
               }}
               horizontal={true}
+              showsHorizontalScrollIndicator={false}
             >
               {logos.map((logo, index) => (
-                <Logo image={logo.image} text={logo.text} />
+                <Logo key={index} image={logo.image} text={logo.text} />
               ))}
             </ScrollView>
             <Sub>Continue Learning</Sub>
@@ -35,28 +36,16 @@ export default class App extends React.Component {
               style={{ paddingBottom: 30 }}
               showsHorizontalScrollIndicator={false}
             >
-              <Card
-                title="Styled Components"
-                image={require("./assets/background13.jpg")}
-                caption="React Native"
-                logo={require("./assets/logo-react.png")}
-                subtitle="5 of 12 sections"
-              />
-              <Card
-                title="Props and Children"
-                image={require("./assets/background14.jpg")}
-                caption="React JS"
-                logo={require("./assets/logo-react.png")}
-                subtitle="10 of 12 sections"
-              />
-
-              <Card
-                title="Props and Children"
-                image={require("./assets/background5.jpg")}
-                caption="React JS"
-                logo={require("./assets/logo-react.png")}
-                subtitle="10 of 12 sections"
-              />
+              {cards.map((card, index) => (
+                <Card
+                  key={index}
+                  title={card.title}
+                  image={card.image}
+                  caption={card.caption}
+                  logo={card.logo}
+                  subtitle={card.subtitle}
+                />
+              ))}
             </ScrollView>
           </ScrollView>
         </SafeAreaView>
@@ -131,5 +120,50 @@ const logos = [
   {
     image: require("./assets/logo-sketch.png"),
     text: "Sketch"
+  }
+];
+
+const cards = [
+  {
+    title: "React Native for Designer",
+    image: require("./assets/background13.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "ReactJS for Designer",
+    image: require("./assets/background2.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Swift IOS",
+    image: require("./assets/background3.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Basic Android",
+    image: require("./assets/background4.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Javasript",
+    image: require("./assets/background5.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
+  },
+  {
+    title: "Angular for designer",
+    image: require("./assets/background6.jpg"),
+    subtitle: "React Native",
+    caption: "1 of 12 sections",
+    logo: require("./assets/logo-react.png")
   }
 ];
