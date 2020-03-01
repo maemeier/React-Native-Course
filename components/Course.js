@@ -67,14 +67,32 @@ const Subtitle = styled.Text`
   margin-left: 20px;
 `;
 
-const Content = styled.View``;
+const Content = styled.View`
+  padding-left: 62px;
+  justify-content: center;
+  height: 75px;
+`;
+
 const Avatar = styled.Image`
   width: 32px;
   height: 32px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 16px;
 `;
 
-const Caption = styled.Text``;
+const Caption = styled.Text`
+  font-size: 14px;
+  color: #3c4560;
+  font-weight: 500;
+`;
 
 const Name = styled.Text``;
 
-const Author = styled.Text``;
+const Author = styled.Text`
+  font-size: 13px;
+  color: #b8bece;
+  font-weight: 500;
+  margin-top: 4px;
+`;
