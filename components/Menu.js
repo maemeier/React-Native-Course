@@ -9,6 +9,15 @@ function mapStateToProps(state) {
   return { action: state.action };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    closeMenu: () =>
+      dispatch({
+        type: "CLOSE_MENU"
+      })
+  };
+}
+
 const screenHeight = Dimensions.get("window").height;
 class Menu extends React.Component {
   state = {
@@ -16,16 +25,26 @@ class Menu extends React.Component {
   };
 
   componentDidMount() {
-    Animated.spring(this.state.top, {
-      toValue: 0
-    }).start();
+    this.toggleMenu();
+  }
+
+  componentDidUpdate() {
+    this.toggleMenu();
   }
 
   toggleMenu = props => {
-    Animated.spring(this.state.top, {
-      toValue: screenHeight
-    }).start();
+    if (this.props.action == "openMenu") {
+      Animated.spring(this.state.top, {
+        toValue: 0
+      }).start();
+    }
+    if (this.props.action == "closeMenu") {
+      Animated.spring(this.state.top, {
+        toValue: screenHeight
+      }).start();
+    }
   };
+
   render() {
     return (
       <AnimatedContainer style={{ top: this.state.top }}>
@@ -35,7 +54,7 @@ class Menu extends React.Component {
           <Subtitle>React Developer</Subtitle>
         </Cover>
         <TouchableOpacity
-          onPress={this.toggleMenu}
+          onPress={this.props.closeMenu}
           style={{
             position: "absolute",
             top: 120,
@@ -63,7 +82,10 @@ class Menu extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Menu);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Menu);
 
 const CloseView = styled.View`
   width: 44px;

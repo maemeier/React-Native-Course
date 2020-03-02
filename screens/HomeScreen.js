@@ -1,12 +1,35 @@
 import React from "react";
-import { Text, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+  Animated,
+  Easing
+} from "react-native";
 import styled from "styled-components";
 import Card from "../components/Card";
 import Logo from "../components/Logo";
 import Course from "../components/Course";
 import Menu from "../components/Menu";
+import { connect } from "react-redux";
 
-export default class HomeScreen extends React.Component {
+function mapStateToProps(state) {
+  return { action: state.action };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    openMenu: () =>
+      dispatch({
+        type: "OPEN_MENU"
+      })
+  };
+}
+
+class HomeScreen extends React.Component {
   render() {
     return (
       <Container>
@@ -14,7 +37,9 @@ export default class HomeScreen extends React.Component {
         <SafeAreaView>
           <ScrollView style={{ height: "100%" }}>
             <TitleBar>
-              <Avatar source={require("../assets/avatar.jpg")} />
+              <TouchableOpacity onPress={this.props.openMenu}>
+                <Avatar source={require("../assets/avatar.jpg")} />
+              </TouchableOpacity>
               <Title>Welcome back,</Title>
               <Name>Mae Meier</Name>
             </TitleBar>
@@ -70,6 +95,10 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen);
 
 const Container = styled.View`
   flex: 1;
@@ -100,7 +129,7 @@ const Avatar = styled.Image`
   background: black;
   border-radius: 22px;
   margin-left: 20px;
-  position: absolute;
+
   top: 0;
   left: 0;
 `;
@@ -198,7 +227,7 @@ const courses = [
   {
     title: "React for Designers",
     subtitle: "12 sections",
-    image: require("../assets/background8.jpg"),
+    image: require("../assets/background3.jpg"),
     logo: require("../assets/logo-react.png"),
     author: "Mae Meier",
     avatar: require("../assets/avatar.jpg"),
