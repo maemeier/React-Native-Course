@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 
 function mapStateToProps(state) {
   return {
-    name: state.name
+    name: state.name,
+    surname: state.surname
   };
 }
 
@@ -24,7 +25,7 @@ class AvatarComponent extends React.Component {
   };
 
   componentDidMount() {
-    fetch("https://uinames.com/api/?ext")
+    fetch("https://uinames.com/api/?ext&gender=female&region=germany")
       .then(respose => respose.json())
       .then(respose => {
         console.log(respose);
