@@ -15,6 +15,7 @@ import Card from "../components/Card";
 import Logo from "../components/Logo";
 import Course from "../components/Course";
 import Menu from "../components/Menu";
+import Avatar1 from "../components/Avatar";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
@@ -87,7 +88,7 @@ class HomeScreen extends React.Component {
                   onPress={this.props.openMenu}
                   style={{ position: "absolute", top: 0, left: 10 }}
                 >
-                  <Avatar source={require("../assets/avatar.jpg")} />
+                  <Avatar1 />
                 </TouchableOpacity>
                 <Title>Welcome back,</Title>
                 <Name>Mae Meier</Name>
