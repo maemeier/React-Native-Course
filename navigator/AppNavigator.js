@@ -9,10 +9,12 @@ import SectionScreen from "../screens/SectionScreen";
 const screens = {
   Home: {
     screen: HomeScreen,
-    header: null
+    header: null,
+    mode: "modal"
   },
   Section: {
-    screen: SectionScreen
+    screen: SectionScreen,
+    header: null
   }
 };
 const AppNavigator = createStackNavigator(screens);
