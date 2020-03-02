@@ -30,68 +30,91 @@ function mapDispatchToProps(dispatch) {
 }
 
 class HomeScreen extends React.Component {
+  state = {
+    scale: new Animated.Value(1)
+  };
+
+  componentDidUpdate() {
+    this.toggleMenu();
+  }
+
+  toggleMenu = () => {
+    if (this.props.action == "openMenu") {
+      Animated.spring(this.state.scale, {
+        toValue: 0.9
+      }).start();
+    }
+
+    if (this.props.action == "closeMenu") {
+      Animated.spring(this.state.scale, {
+        toValue: 1
+      }).start();
+    }
+  };
   render() {
     return (
-      <Container>
-        <Menu />
-        <SafeAreaView>
-          <ScrollView style={{ height: "100%" }}>
-            <TitleBar>
-              <TouchableOpacity onPress={this.props.openMenu}>
-                <Avatar source={require("../assets/avatar.jpg")} />
-              </TouchableOpacity>
-              <Title>Welcome back,</Title>
-              <Name>Mae Meier</Name>
-            </TitleBar>
+      <RootView>
+        <AnimatedContainer style={{ transform: [{ scale: this.state.scale }] }}>
+          <Menu />
+          <SafeAreaView>
+            <ScrollView style={{ height: "100%" }}>
+              <TitleBar>
+                <TouchableOpacity onPress={this.props.openMenu}>
+                  <Avatar source={require("../assets/avatar.jpg")} />
+                </TouchableOpacity>
+                <Title>Welcome back,</Title>
+                <Name>Mae Meier</Name>
+              </TitleBar>
 
-            <ScrollView
-              style={{
-                flexDirection: "row",
-                padding: 20,
-                paddingLeft: 12,
-                paddingTop: 30
-              }}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              {logos.map((logo, index) => (
-                <Logo key={index} image={logo.image} text={logo.text} />
-              ))}
-            </ScrollView>
-            <Sub>Continue Learning</Sub>
-            <ScrollView
-              horizontal={true}
-              style={{ paddingBottom: 30 }}
-              showsHorizontalScrollIndicator={false}
-            >
-              {cards.map((card, index) => (
-                <Card
+              <ScrollView
+                style={{
+                  flexDirection: "row",
+                  padding: 20,
+                  paddingLeft: 12,
+                  paddingTop: 30
+                }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                {logos.map((logo, index) => (
+                  <Logo key={index} image={logo.image} text={logo.text} />
+                ))}
+              </ScrollView>
+              <Sub>Continue Learning</Sub>
+              <ScrollView
+                horizontal={true}
+                style={{ paddingBottom: 30 }}
+                showsHorizontalScrollIndicator={false}
+              >
+                {cards.map((card, index) => (
+                  <Card
+                    key={index}
+                    title={card.title}
+                    image={card.image}
+                    caption={card.caption}
+                    logo={card.logo}
+                    subtitle={card.subtitle}
+                  />
+                ))}
+              </ScrollView>
+              <Sub>Popular Courses</Sub>
+
+              {courses.map((course, index) => (
+                <Course
                   key={index}
-                  title={card.title}
-                  image={card.image}
-                  caption={card.caption}
-                  logo={card.logo}
-                  subtitle={card.subtitle}
+                  image={course.image}
+                  title={course.title}
+                  subtitle={course.subtitle}
+                  logo={course.logo}
+                  author={course.author}
+                  avatar={course.avatar}
+                  caption={course.caption}
                 />
               ))}
             </ScrollView>
-            <Sub>Popular Courses</Sub>
-
-            {courses.map((course, index) => (
-              <Course
-                key={index}
-                image={course.image}
-                title={course.title}
-                subtitle={course.subtitle}
-                logo={course.logo}
-                author={course.author}
-                avatar={course.avatar}
-                caption={course.caption}
-              />
-            ))}
-          </ScrollView>
-        </SafeAreaView>
-      </Container>
+          </SafeAreaView>
+        </AnimatedContainer>
+      </RootView>
     );
   }
 }
@@ -100,11 +123,16 @@ export default connect(
   mapDispatchToProps
 )(HomeScreen);
 
+const RootView = styled.View`
+  background: black;
+  flex: 1;
+`;
 const Container = styled.View`
   flex: 1;
   background-color: #f0f3f5;
 `;
 
+const AnimatedContainer = Animated.createAnimatedComponent(Container);
 const Title = styled.Text`
   font-size: 16px;
   color: #b8bece;
