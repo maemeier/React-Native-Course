@@ -7,6 +7,15 @@ class SectionScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+
+  componentDidMount() {
+    StatusBar.setBarStyle("light-content", true);
+  }
+
+  componentWillUnmounth() {
+    StatusBar.setBarStyle("dark-content", true);
+  }
+
   render() {
     const { navigation } = this.props;
     const section = navigation.getParam("section");
@@ -15,10 +24,19 @@ class SectionScreen extends React.Component {
         <StatusBar hidden />
         <Cover>
           <Image source={section.image} />
+          <Wrapper>
+            <Logo source={section.logo} />
+            <Subtitle>{section.subtitle}</Subtitle>
+          </Wrapper>
           <Title>{section.title}</Title>
           <Caption>{section.caption}</Caption>
         </Cover>
-        <TouchableOpacity style={{ position: "absolute", top: 20, right: 20 }}>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}
+          style={{ position: "absolute", top: 20, right: 20 }}
+        >
           <CloseView>
             <Ionicons
               name="ios-close"
@@ -73,4 +91,25 @@ const CloseView = styled.View`
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   justify-content: center;
   align-items: center;
+`;
+
+const Logo = styled.Image`
+  width: 24px;
+  height: 24px;
+`;
+
+const Wrapper = styled.View`
+  flex-direction: row;
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  align-items: center;
+`;
+
+const Subtitle = styled.Text`
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 5px;
+  text-transform: uppercase;
 `;
