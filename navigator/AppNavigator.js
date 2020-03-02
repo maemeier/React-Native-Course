@@ -8,7 +8,8 @@ import SectionScreen from "../screens/SectionScreen";
 
 const screens = {
   Home: {
-    screen: HomeScreen
+    screen: HomeScreen,
+    header: null
   },
   Section: {
     screen: SectionScreen
