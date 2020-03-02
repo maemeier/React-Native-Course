@@ -19,7 +19,7 @@ import Avatar1 from "../components/Avatar";
 import { connect } from "react-redux";
 
 function mapStateToProps(state) {
-  return { action: state.action };
+  return { action: state.action, name: state.name };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -91,7 +91,7 @@ class HomeScreen extends React.Component {
                   <Avatar1 />
                 </TouchableOpacity>
                 <Title>Welcome back,</Title>
-                <Name>Mae Meier</Name>
+                <Name>{this.props.name}</Name>
               </TitleBar>
 
               <ScrollView
