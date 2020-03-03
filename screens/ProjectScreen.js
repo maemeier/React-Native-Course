@@ -2,15 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import styled from "styled-components";
 
-const CourseScreen = props => {
+const ProjectScreen = props => {
   return (
     <Cover>
-      <Text> course components</Text>
+      <Text> Project components</Text>
     </Cover>
   );
 };
 
-export default CourseScreen;
+export default ProjectScreen;
 
 const Cover = styled.View`
   height: 142px;

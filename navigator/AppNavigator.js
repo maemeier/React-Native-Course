@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import SectionScreen from "../screens/SectionScreen";
 import CourseScreen from "../screens/CourseScreen";
+import ProjectScreen from "../screens/ProjectScreen";
 
 // stack navigator
 
@@ -27,7 +28,8 @@ const AppNavigator = createStackNavigator(screens);
 
 const TabNav = createBottomTabNavigator({
   Home: AppNavigator,
-  Course: CourseScreen
+  Course: CourseScreen,
+  Project: ProjectScreen
 });
 
 export default createAppContainer(TabNav);
