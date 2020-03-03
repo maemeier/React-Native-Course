@@ -17,6 +17,43 @@ import Course from "../components/Course";
 import Menu from "../components/Menu";
 import Avatar1 from "../components/Avatar";
 import { connect } from "react-redux";
+import ApolloClient from "apollo-boost";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+// query
+const CardsQuery = gql`
+  {
+    cardsCollection {
+      items {
+        title
+        subtitle
+        image {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        subtitle
+        caption
+        logo {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+      }
+    }
+  }
+`;
 
 function mapStateToProps(state) {
   return { action: state.action, name: state.name };
@@ -117,6 +154,13 @@ class HomeScreen extends React.Component {
                 style={{ paddingBottom: 30 }}
                 showsHorizontalScrollIndicator={false}
               >
+                <Query query={CardsQuery}>
+                  {({ loading, error, data }) => {
+                    if (loading) return <Message>Loading...</Message>;
+                    console.log(data.cardsCollection.items);
+                    return <Message />;
+                  }}
+                </Query>
                 {cards.map((card, index) => (
                   <TouchableOpacity
                     key={index}
@@ -209,6 +253,8 @@ const Sub = styled.Text`
   padding-left: 18px;
   text-transform: uppercase;
 `;
+
+const Message = styled.Text``;
 
 const logos = [
   {
