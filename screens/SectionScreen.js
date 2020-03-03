@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity, StatusBar } from "react-native";
+import { TouchableOpacity, StatusBar, WebView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 class SectionScreen extends React.Component {
@@ -46,12 +46,17 @@ class SectionScreen extends React.Component {
             />
           </CloseView>
         </TouchableOpacity>
+        <Content>
+          <WebView />
+        </Content>
       </Container>
     );
   }
 }
 
 export default SectionScreen;
+
+const Content = styled.View``;
 
 const Container = styled.View`
   flex: 1;
