@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity, StatusBar, WebView } from "react-native";
+import { TouchableOpacity, StatusBar, Linking } from "react-native";
+import { WebView } from "react-native-webview";
 import { Ionicons } from "@expo/vector-icons";
 
 class SectionScreen extends React.Component {
@@ -47,7 +48,19 @@ class SectionScreen extends React.Component {
           </CloseView>
         </TouchableOpacity>
         <Content>
-          <WebView />
+          <WebView
+            source={{ html: section.content + htmlStyles }}
+            scalesPageToFit={false}
+            scrollEnabled={false}
+            ref="webview"
+            onNavigationStateChange={event => {
+              console.log(event);
+              if (event.url !== "about:blank") {
+                this.refs.webview.stopLoading();
+                Linking.openURL(event.url);
+              }
+            }}
+          />
         </Content>
       </Container>
     );
@@ -55,8 +68,60 @@ class SectionScreen extends React.Component {
 }
 
 export default SectionScreen;
+const htmlContent = `
+    <h1>This is a title</h1>
+    <p>This <strong>is</strong> a <a href="http://designcode.io">link</a></p>
+    <img src="https://cl.ly/8861f359ed6d/download/Wave14.jpg" />
+  `;
+const htmlStyles = `
 
-const Content = styled.View``;
+<style>
+  * {
+    font-family: -apple-system;
+        margin: 0;
+        padding: 0;
+    font-size: 17px;
+    font-weight: normal;
+    color: #3c4560;
+    line-height: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #b8bece;
+    font-weight: 600;
+    margin-top: 50px;
+  }
+
+    p {
+      margin-top: 20px;
+  }
+
+  a {
+    color: #4775f2;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  img {
+     width: 100%;
+     margin-top: 20px;
+       border-radius: 10px;
+   }
+
+</style>
+`;
+
+const Content = styled.View`
+  height: 100%;
+  padding: 20px;
+  background: white;
+`;
 
 const Container = styled.View`
   flex: 1;
