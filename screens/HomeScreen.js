@@ -157,28 +157,32 @@ class HomeScreen extends React.Component {
                 <Query query={CardsQuery}>
                   {({ loading, error, data }) => {
                     if (loading) return <Message>Loading...</Message>;
+                    if (error) return <Message> Error ..</Message>;
                     console.log(data.cardsCollection.items);
-                    return <Message />;
+                    return (
+                      <CardsContainer>
+                        {data.cardsCollection.items.map((card, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            onPress={() => {
+                              this.props.navigation.push("Section", {
+                                section: card
+                              });
+                            }}
+                          >
+                            <Card
+                              title={card.title}
+                              image={card.image}
+                              caption={card.caption}
+                              logo={card.logo}
+                              subtitle={card.subtitle}
+                            />
+                          </TouchableOpacity>
+                        ))}
+                      </CardsContainer>
+                    );
                   }}
                 </Query>
-                {cards.map((card, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      this.props.navigation.push("Section", {
-                        section: card
-                      });
-                    }}
-                  >
-                    <Card
-                      title={card.title}
-                      image={card.image}
-                      caption={card.caption}
-                      logo={card.logo}
-                      subtitle={card.subtitle}
-                    />
-                  </TouchableOpacity>
-                ))}
               </ScrollView>
               <Sub>Popular Courses</Sub>
 
@@ -254,7 +258,14 @@ const Sub = styled.Text`
   text-transform: uppercase;
 `;
 
-const Message = styled.Text``;
+const CardsContainer = styled.View``;
+
+const Message = styled.Text`
+  margin: 20px;
+  color: #b8bece;
+  font-size: 15px;
+  font-weight: 500;
+`;
 
 const logos = [
   {
