@@ -10,7 +10,9 @@ class ProjectScreen extends React.Component {
   state = {
     pan: new Animated.ValueXY(),
     scale: new Animated.Value(0.9),
-    translateY: new Animated.Value(44)
+    translateY: new Animated.Value(44),
+    thirdScale: new Animated.Value(0.8),
+    thirdTranslateY: new Animated.Value(-50)
   };
 
   componentWillMount() {
@@ -18,6 +20,8 @@ class ProjectScreen extends React.Component {
       onPanResponderGrant: () => {
         Animated.spring(this.state.scale, { toValue: 1 }).start();
         Animated.spring(this.state.translateY, { toValue: 0 }).start();
+        Animated.spring(this.state.thirdScale, { toValue: 0.9 }).start();
+        Animated.spring(this.state.thirdTranslateY, { toValue: 44 }).start();
       },
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([
@@ -82,6 +86,29 @@ class ProjectScreen extends React.Component {
             text={projects[0].text}
           />
         </Animated.View>
+        <Animated.View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: -3,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            transform: [
+              { scale: this.state.thirdScale },
+              { translateY: this.state.thirdTranslateY }
+            ]
+          }}
+        >
+          <Project
+            title={projects[2].title}
+            image={projects[2].image}
+            author={projects[2].author}
+            text={projects[2].text}
+          />
+        </Animated.View>
       </Container>
     );
   }
@@ -100,24 +127,24 @@ const Text = styled.Text``;
 
 const projects = [
   {
-    title: "Price Tag",
+    title: "React Native",
     image: require("../assets/background5.jpg"),
     author: "Liu Yi",
     text:
-      "Thanks to Design+Code, I improved my design skill and learned to do animations for my app Price Tag, a top news app in China."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
   },
   {
-    title: "The DM App - Ananoumous Chat",
+    title: "React JS for Beginner",
     image: require("../assets/background6.jpg"),
-    author: "Chad Goodman",
+    author: "Nils Fatcat",
     text:
-      "Design+Code was the first resource I used when breaking into software. I went from knowing nothing about design or code to building a production ready app from scratch. "
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
   },
   {
     title: "Nikhiljay",
     image: require("../assets/background7.jpg"),
     author: "Nikhil D'Souza",
     text:
-      "Recently finished the React course by @Mengto, and I 10/10 would recommend. I already rewrote my personal website in @reactjs and I'm very excited with it."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
   }
 ];
