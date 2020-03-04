@@ -1,17 +1,55 @@
 import React from "react";
 import styled from "styled-components";
-import { Animated, TouchableWithoutFeedback } from "react-native";
+import {
+  Animated,
+  TouchableWithoutFeedback,
+  Dimensions,
+  StatusBar,
+  TouchableOpacity
+} from "react-native";
+
+import { Ionicons } from "@expo/vector-icons";
+
+// dimension scale all screens
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
+// detect tabbar hardcode
+
+const tabBarHeight = 74;
 
 class Project extends React.Component {
   state = {
     cardWidth: new Animated.Value(315),
-    cardHeight: new Animated.Value(460)
+    cardHeight: new Animated.Value(460),
+    titleTop: new Animated.Value(50),
+    opacity: new Animated.Value(0)
   };
 
+  //open full card
   openCard = () => {
-    Animated.spring(this.state.cardWidth, { toValue: 375 }).start();
-    Animated.spring(this.state.cardHeight, { toValue: 812 }).start();
+    Animated.spring(this.state.cardWidth, { toValue: screenWidth }).start();
+    Animated.spring(this.state.cardHeight, {
+      toValue: screenHeight - tabBarHeight
+    }).start();
+    Animated.spring(this.state.titleTop, { toValue: 40 }).start();
+    Animated.timing(this.state.opacity, { toValue: 1 }).start();
+
+    StatusBar.setHidden(true);
   };
+
+  //close cardWidth
+  closeCard = () => {
+    Animated.spring(this.state.cardWidth, { toValue: 315 }).start();
+    Animated.spring(this.state.cardHeight, {
+      toValue: 460
+    }).start();
+    Animated.spring(this.state.titleTop, { toValue: 20 }).start();
+    Animated.timing(this.state.opacity, { toValue: 0 }).start();
+
+    StatusBar.setHidden(false);
+  };
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={this.openCard}>
@@ -23,10 +61,20 @@ class Project extends React.Component {
         >
           <Cover>
             <Image source={this.props.image} />
-            <Title>{this.props.title}</Title>
+            <AnimatedTitle style={{ top: this.state.titleTop }}>
+              {this.props.title}
+            </AnimatedTitle>
             <Author>{this.props.author}</Author>
           </Cover>
           <Text>{this.props.text}</Text>
+          <TouchableOpacity
+            style={{ position: "absolute", top: 20, right: 20 }}
+            onPress={this.closeCard}
+          >
+            <AnimatedCloseView style={{ opacity: this.state.opacity }}>
+              <Ionicons name="ios-close" size={32} color="#546cfb" />
+            </AnimatedCloseView>
+          </TouchableOpacity>
         </AnimatedContainer>
       </TouchableWithoutFeedback>
     );
@@ -34,6 +82,17 @@ class Project extends React.Component {
 }
 
 export default Project;
+
+const CloseView = styled.View`
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AnimatedCloseView = Animated.createAnimatedComponent(CloseView);
 
 const Container = styled.View`
   width: 315px;
@@ -65,6 +124,8 @@ const Title = styled.Text`
   width: 300px;
   font-weight: 600;
 `;
+
+const AnimatedTitle = Animated.createAnimatedComponent(Title);
 const Author = styled.Text`
   position: absolute;
   bottom: 20px;
