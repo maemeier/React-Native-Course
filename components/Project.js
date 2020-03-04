@@ -1,22 +1,40 @@
 import React from "react";
 import styled from "styled-components";
+import { Animated, TouchableWithoutFeedback } from "react-native";
 
 class Project extends React.Component {
+  state = {
+    cardWidth: new Animated.Value(315),
+    cardHeight: new Animated.Value(460)
+  };
+
+  openCard = () => {
+    Animated.spring(this.state.cardWidth, { toValue: 375 }).start();
+    Animated.spring(this.state.cardHeight, { toValue: 812 }).start();
+  };
   render() {
     return (
-      <Container>
-        <Cover>
-          <Image source={this.props.image} />
-          <Title>{this.props.title}</Title>
-          <Author>{this.props.author}</Author>
-        </Cover>
-        <Text>{this.props.text}</Text>
-      </Container>
+      <TouchableWithoutFeedback onPress={this.openCard}>
+        <AnimatedContainer
+          style={{
+            width: this.state.cardWidth,
+            height: this.state.cardHeight
+          }}
+        >
+          <Cover>
+            <Image source={this.props.image} />
+            <Title>{this.props.title}</Title>
+            <Author>{this.props.author}</Author>
+          </Cover>
+          <Text>{this.props.text}</Text>
+        </AnimatedContainer>
+      </TouchableWithoutFeedback>
     );
   }
 }
 
 export default Project;
+
 const Container = styled.View`
   width: 315px;
   height: 460px;
@@ -24,6 +42,8 @@ const Container = styled.View`
   background-color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 `;
+
+const AnimatedContainer = Animated.createAnimatedComponent(Container);
 const Head = styled.Text``;
 const Cover = styled.View`
   height: 290px;
