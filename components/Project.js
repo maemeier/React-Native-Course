@@ -27,7 +27,9 @@ class Project extends React.Component {
   };
 
   //open full card
+
   openCard = () => {
+    if (!this.props.canOpen) return;
     Animated.spring(this.state.cardWidth, { toValue: screenWidth }).start();
     Animated.spring(this.state.cardHeight, {
       toValue: screenHeight - tabBarHeight

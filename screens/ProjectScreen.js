@@ -83,6 +83,7 @@ class ProjectScreen extends React.Component {
             image={projects[this.state.index].image}
             author={projects[this.state.index].author}
             text={projects[this.state.index].text}
+            canOpen={true}
           />
         </Animated.View>
         <Animated.View
