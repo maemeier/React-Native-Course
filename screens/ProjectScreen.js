@@ -8,11 +8,17 @@ class ProjectScreen extends React.Component {
     header: null
   };
   state = {
-    pan: new Animated.ValueXY()
+    pan: new Animated.ValueXY(),
+    scale: new Animated.Value(0.9),
+    translateY: new Animated.Value(44)
   };
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
+      onPanResponderGrant: () => {
+        Animated.spring(this.state.scale, { toValue: 1 }).start();
+        Animated.spring(this.state.translateY, { toValue: 0 }).start();
+      },
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: Animated.event([
         null,
@@ -22,6 +28,8 @@ class ProjectScreen extends React.Component {
         Animated.spring(this.state.pan, {
           toValue: { x: 0, y: 0 }
         }).start();
+        Animated.spring(this.state.scale, { toValue: 0.9 }).start();
+        Animated.spring(this.state.translateY, { toValue: 44 }).start();
       }
     });
   }
@@ -41,8 +49,26 @@ class ProjectScreen extends React.Component {
             title="Price Tag"
             image={require("../assets/background1.jpg")}
             author="Mae Meier"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam , sunt in culpa qui officia deserunt mollit anim id est laborum."
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
           />
+        </Animated.View>
+        <Animated.View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            zIndex: -1,
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            transform: [
+              { scale: this.state.scale },
+              { translateY: this.state.translateY }
+            ]
+          }}
+        >
+          <Project />
         </Animated.View>
       </Container>
     );

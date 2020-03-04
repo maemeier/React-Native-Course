@@ -8,7 +8,7 @@ class Project extends React.Component {
         <Cover>
           <Image source={this.props.image} />
           <Title>{this.props.title}</Title>
-          <Author>{this.props.title}</Author>
+          <Author>{this.props.author}</Author>
         </Cover>
         <Text>{this.props.text}</Text>
       </Container>
@@ -43,6 +43,7 @@ const Title = styled.Text`
   color: white;
   font-size: 24px;
   width: 300px;
+  font-weight: 600;
 `;
 const Author = styled.Text`
   position: absolute;
