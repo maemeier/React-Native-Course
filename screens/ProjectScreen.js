@@ -53,10 +53,10 @@ class ProjectScreen extends React.Component {
           {...this._panResponder.panHandlers}
         >
           <Project
-            title="Price Tag"
-            image={require("../assets/background1.jpg")}
-            author="Mae Meier"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+            title={projects[1].title}
+            image={projects[1].image}
+            author={projects[1].author}
+            text={projects[1].text}
           />
         </Animated.View>
         <Animated.View
@@ -75,7 +75,12 @@ class ProjectScreen extends React.Component {
             ]
           }}
         >
-          <Project />
+          <Project
+            title={projects[0].title}
+            image={projects[0].image}
+            author={projects[0].author}
+            text={projects[0].text}
+          />
         </Animated.View>
       </Container>
     );
@@ -92,3 +97,27 @@ const Container = styled.View`
 `;
 
 const Text = styled.Text``;
+
+const projects = [
+  {
+    title: "Price Tag",
+    image: require("../assets/background5.jpg"),
+    author: "Liu Yi",
+    text:
+      "Thanks to Design+Code, I improved my design skill and learned to do animations for my app Price Tag, a top news app in China."
+  },
+  {
+    title: "The DM App - Ananoumous Chat",
+    image: require("../assets/background6.jpg"),
+    author: "Chad Goodman",
+    text:
+      "Design+Code was the first resource I used when breaking into software. I went from knowing nothing about design or code to building a production ready app from scratch. "
+  },
+  {
+    title: "Nikhiljay",
+    image: require("../assets/background7.jpg"),
+    author: "Nikhil D'Souza",
+    text:
+      "Recently finished the React course by @Mengto, and I 10/10 would recommend. I already rewrote my personal website in @reactjs and I'm very excited with it."
+  }
+];
