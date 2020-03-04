@@ -12,14 +12,11 @@ class ProjectScreen extends React.Component {
   };
 
   componentWillMount() {
-    this._panresponder = PanResponder.create({
+    this._panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPandResponderMove: Animated.event([
+      onPanResponderMove: Animated.event([
         null,
-        {
-          dx: this.state.pan.x,
-          dy: this.state.pan.y
-        }
+        { dx: this.state.pan.x, dy: this.state.pan.y }
       ])
     });
   }
@@ -33,6 +30,7 @@ class ProjectScreen extends React.Component {
               { translateY: this.state.pan.y }
             ]
           }}
+          {...this._panResponder.panHandlers}
         >
           <Project />
         </Animated.View>
