@@ -17,7 +17,12 @@ class ProjectScreen extends React.Component {
       onPanResponderMove: Animated.event([
         null,
         { dx: this.state.pan.x, dy: this.state.pan.y }
-      ])
+      ]),
+      onPanResponderRelease: () => {
+        Animated.spring(this.state.pan, {
+          toValue: { x: 0, y: 0 }
+        }).start();
+      }
     });
   }
   render() {
