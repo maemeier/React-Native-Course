@@ -17,13 +17,15 @@ class ProjectScreen extends React.Component {
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
+      onMoveShouldSetPanResponder: () => true,
+
       onPanResponderGrant: () => {
         Animated.spring(this.state.scale, { toValue: 1 }).start();
         Animated.spring(this.state.translateY, { toValue: 0 }).start();
         Animated.spring(this.state.thirdScale, { toValue: 0.9 }).start();
         Animated.spring(this.state.thirdTranslateY, { toValue: 44 }).start();
       },
-      onMoveShouldSetPanResponder: () => true,
+
       onPanResponderMove: Animated.event([
         null,
         { dx: this.state.pan.x, dy: this.state.pan.y }
@@ -32,14 +34,20 @@ class ProjectScreen extends React.Component {
         const positionY = this.state.pan.y.__getValue();
         if (positionY > 250) {
           Animated.timing(this.state.pan, {
-            toValue: { x: this.state.pan.x, y: 1000 }
-          }).start();
+            toValue: { x: 0, y: 1000 }
+          }).start(() => {
+            this.state.pan.setValue({ x: 0, y: 0 });
+          });
         } else {
           Animated.spring(this.state.pan, {
             toValue: { x: 0, y: 0 }
           }).start();
+
           Animated.spring(this.state.scale, { toValue: 0.9 }).start();
           Animated.spring(this.state.translateY, { toValue: 44 }).start();
+
+          Animated.spring(this.state.thirdScale, { toValue: 0.8 }).start();
+          Animated.spring(this.state.thirdTranslateY, { toValue: -50 }).start();
         }
       }
     });
