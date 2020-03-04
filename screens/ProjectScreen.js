@@ -8,7 +8,7 @@ function getNextIndex(index) {
   if (nextIndex > projects.length - 1) {
     return 0;
   }
-  return index + 1;
+  return nextIndex;
 }
 
 class ProjectScreen extends React.Component {
@@ -102,10 +102,10 @@ class ProjectScreen extends React.Component {
           }}
         >
           <Project
-            title={projects[0].title}
-            image={projects[0].image}
-            author={projects[0].author}
-            text={projects[0].text}
+            title={projects[getNextIndex(this.state.index)].title}
+            image={projects[getNextIndex(this.state.index)].image}
+            author={projects[getNextIndex(this.state.index)].author}
+            text={projects[getNextIndex(this.state.index)].text}
           />
         </Animated.View>
         <Animated.View
@@ -125,10 +125,10 @@ class ProjectScreen extends React.Component {
           }}
         >
           <Project
-            title={projects[2].title}
-            image={projects[2].image}
-            author={projects[2].author}
-            text={projects[2].text}
+            title={projects[getNextIndex(this.state.index + 1)].title}
+            image={projects[getNextIndex(this.state.index + 1)].image}
+            author={projects[getNextIndex(this.state.index + 1)].author}
+            text={projects[getNextIndex(this.state.index + 1)].text}
           />
         </Animated.View>
       </Container>
@@ -150,7 +150,7 @@ const Text = styled.Text``;
 const projects = [
   {
     title: "React Native",
-    image: require("../assets/background5.jpg"),
+    image: require("../assets/background13.jpg"),
     author: "Liu Yi",
     text:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
