@@ -3,6 +3,14 @@ import Project from "../components/Project";
 import styled from "styled-components";
 import { PanResponder, Animated } from "react-native";
 
+function getNextIndex(index) {
+  var nextIndex = index + 1;
+  if (nextIndex > projects.length - 1) {
+    return 0;
+  }
+  return index + 1;
+}
+
 class ProjectScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -12,7 +20,8 @@ class ProjectScreen extends React.Component {
     scale: new Animated.Value(0.9),
     translateY: new Animated.Value(44),
     thirdScale: new Animated.Value(0.8),
-    thirdTranslateY: new Animated.Value(-50)
+    thirdTranslateY: new Animated.Value(-50),
+    index: 0
   };
 
   componentWillMount() {
@@ -37,6 +46,11 @@ class ProjectScreen extends React.Component {
             toValue: { x: 0, y: 1000 }
           }).start(() => {
             this.state.pan.setValue({ x: 0, y: 0 });
+            this.state.scale.setValue(0.9);
+            this.state.translateY.setValue(44);
+            this.state.thirdScale.setValue(0.8);
+            this.state.thirdTranslateY.setValue(-50);
+            this.setState({ index: getNextIndex(this.state.index) });
           });
         } else {
           Animated.spring(this.state.pan, {
@@ -65,10 +79,10 @@ class ProjectScreen extends React.Component {
           {...this._panResponder.panHandlers}
         >
           <Project
-            title={projects[1].title}
-            image={projects[1].image}
-            author={projects[1].author}
-            text={projects[1].text}
+            title={projects[this.state.index].title}
+            image={projects[this.state.index].image}
+            author={projects[this.state.index].author}
+            text={projects[this.state.index].text}
           />
         </Animated.View>
         <Animated.View

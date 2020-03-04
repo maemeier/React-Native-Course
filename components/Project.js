@@ -24,7 +24,7 @@ const Container = styled.View`
   background-color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 `;
-
+const Head = styled.Text``;
 const Cover = styled.View`
   height: 290px;
   border-top-left-radius: 14px;
