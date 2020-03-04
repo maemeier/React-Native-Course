@@ -25,11 +25,18 @@ class ProjectScreen extends React.Component {
         { dx: this.state.pan.x, dy: this.state.pan.y }
       ]),
       onPanResponderRelease: () => {
-        Animated.spring(this.state.pan, {
-          toValue: { x: 0, y: 0 }
-        }).start();
-        Animated.spring(this.state.scale, { toValue: 0.9 }).start();
-        Animated.spring(this.state.translateY, { toValue: 44 }).start();
+        const positionY = this.state.pan.y.__getValue();
+        if (positionY > 250) {
+          Animated.timing(this.state.pan, {
+            toValue: { x: this.state.pan.x, y: 1000 }
+          }).start();
+        } else {
+          Animated.spring(this.state.pan, {
+            toValue: { x: 0, y: 0 }
+          }).start();
+          Animated.spring(this.state.scale, { toValue: 0.9 }).start();
+          Animated.spring(this.state.translateY, { toValue: 44 }).start();
+        }
       }
     });
   }
