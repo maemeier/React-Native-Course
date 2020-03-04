@@ -37,7 +37,12 @@ class ProjectScreen extends React.Component {
           }}
           {...this._panResponder.panHandlers}
         >
-          <Project />
+          <Project
+            title="Price Tag"
+            image={require("../assets/background1.jpg")}
+            author="Mae Meier"
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam , sunt in culpa qui officia deserunt mollit anim id est laborum."
+          />
         </Animated.View>
       </Container>
     );
